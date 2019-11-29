@@ -28,21 +28,34 @@
 
 package de.superlandnetwork.discord.bot.listeners;
 
+import de.superlandnetwork.discord.bot.Main;
 import org.javacord.api.event.server.member.ServerMemberJoinEvent;
 import org.javacord.api.exception.MissingPermissionsException;
 import org.javacord.api.listener.server.member.ServerMemberJoinListener;
 import org.javacord.api.util.logging.ExceptionLogger;
 
+import java.sql.SQLException;
+
 public class MemberJoinListener implements ServerMemberJoinListener {
 
     @Override
     public void onServerMemberJoin(ServerMemberJoinEvent event) {
-        if (!event.getServer().getChannelById("646004622397538314").isPresent()) {
+        try {
+            String sql = "SELECT `id` FROM `sln_discord_users` WHERE `discord` = '" + event.getUser().getId() + "'";
+            if (!Main.mySQL.getResult(sql).next()) {
+                String sql2 = "INSERT INTO `sln_discord_users` (`discord``) VALUES ('" + event.getUser().getId() + "')";
+                Main.mySQL.update(sql2);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (!event.getServer().getChannelById(646004622397538314L).isPresent()) {
             System.err.println("Channel not Found!");
             return;
         }
 
-        event.getServer().getTextChannelById("646004622397538314").ifPresent(channel -> {
+        event.getServer().getTextChannelById(646004622397538314L).ifPresent(channel -> {
             channel.sendMessage(event.getUser().getNicknameMentionTag() + " joined the server.").exceptionally(ExceptionLogger.get(MissingPermissionsException.class));
             System.out.println(event.getUser().getName() + " joined the server " + event.getServer().getName());
         });

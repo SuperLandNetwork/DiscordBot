@@ -26,25 +26,26 @@
  *
  */
 
-package de.superlandnetwork.discord.bot.listeners;
+package de.superlandnetwork.discord.bot.utils;
 
-import org.javacord.api.event.server.member.ServerMemberBanEvent;
-import org.javacord.api.exception.MissingPermissionsException;
-import org.javacord.api.listener.server.member.ServerMemberBanListener;
-import org.javacord.api.util.logging.ExceptionLogger;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 
-public class MemberBanListener implements ServerMemberBanListener {
+public class Config {
+    Properties settingsProps;
 
-    @Override
-    public void onServerMemberBan(ServerMemberBanEvent event) {
-        if (!event.getServer().getChannelById(646004622397538314L).isPresent()) {
-            System.err.println("Channel not Found!");
-            return;
+    public Config() {
+        settingsProps = new Properties();
+
+        try {
+            settingsProps.load(Config.class.getClassLoader().getResourceAsStream("settings.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
 
-        event.getServer().getTextChannelById(646004622397538314L).ifPresent(channel -> {
-            channel.sendMessage(event.getUser().getNicknameMentionTag() + "  was banned from the server.").exceptionally(ExceptionLogger.get(MissingPermissionsException.class));
-            System.out.println(event.getUser().getName() + " was banned from the server " + event.getServer().getName());
-        });
+    public Properties getSettingsProps() {
+        return settingsProps;
     }
 }

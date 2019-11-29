@@ -37,12 +37,12 @@ public class MemberLeaveListener implements ServerMemberLeaveListener {
 
     @Override
     public void onServerMemberLeave(ServerMemberLeaveEvent event) {
-        if (!event.getServer().getChannelById("646004622397538314").isPresent()) {
+        if (!event.getServer().getChannelById(646004622397538314L).isPresent()) {
             System.err.println("Channel not Found!");
             return;
         }
 
-        event.getServer().getTextChannelById("646004622397538314").ifPresent(channel -> {
+        event.getServer().getTextChannelById(646004622397538314L).ifPresent(channel -> {
             channel.sendMessage(event.getUser().getNicknameMentionTag() + " left the server.").exceptionally(ExceptionLogger.get(MissingPermissionsException.class));
             System.out.println(event.getUser().getName() + " left the server " + event.getServer().getName());
         });

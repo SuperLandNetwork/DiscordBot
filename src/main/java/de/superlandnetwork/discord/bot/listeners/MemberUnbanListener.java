@@ -37,12 +37,12 @@ public class MemberUnbanListener implements ServerMemberUnbanListener {
 
     @Override
     public void onServerMemberUnban(ServerMemberUnbanEvent event) {
-        if (!event.getServer().getChannelById("646004622397538314").isPresent()) {
+        if (!event.getServer().getChannelById(646004622397538314L).isPresent()) {
             System.err.println("Channel not Found!");
             return;
         }
 
-        event.getServer().getTextChannelById("646004622397538314").ifPresent(channel -> {
+        event.getServer().getTextChannelById(646004622397538314L).ifPresent(channel -> {
             channel.sendMessage(event.getUser().getNicknameMentionTag() + "  was unbanned from the server.").exceptionally(ExceptionLogger.get(MissingPermissionsException.class));
             System.out.println(event.getUser().getName() + " was unbanned from the server " + event.getServer().getName());
         });
