@@ -124,12 +124,10 @@ public class Main {
                     cancleVerify(user);
                     String sql2 = "UPDATE `sln_users` SET `discord`='" + user.getId() + "' WHERE `uuid`='" + rs.getString("uuid") + "'";
                     mySQL.update(sql2);
-                    api.getServerById(316274214598475776L).ifPresent(server -> {
-                        server.getMemberByDiscriminatedName(id).ifPresent(user1 -> {
-                            server.getRoleById(GroupsEnum.VERIFY.getId()).ifPresent(user1::addRole);
-                            checkUserRoles(server, user1);
-                        });
-                    });
+                    api.getServerById(316274214598475776L).ifPresent(server -> server.getMemberByDiscriminatedName(id).ifPresent(user1 -> {
+                        server.getRoleById(GroupsEnum.VERIFY.getId()).ifPresent(user1::addRole);
+                        checkUserRoles(server, user1);
+                    }));
                     user.sendMessage("Deine Identität wurde bestätigt");
                 } else
                     user.sendMessage("Falscher Minecraft-Name!");

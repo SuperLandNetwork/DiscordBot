@@ -32,7 +32,7 @@ public enum GroupsEnum {
 
     VERIFY(649261218913320971L, 0, false),
     DIVIDE(649260975404613645L, 0, false),
-    USER(649260975404613645L, 1, false),
+    USER(VERIFY.getId(), 1, false),
     PREMIUM(649265212301639719L, 2, false),
     YOUTUBE(PREMIUM.getId(), 3, false),
     TWITCH(PREMIUM.getId(), 4, false),
