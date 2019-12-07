@@ -34,7 +34,7 @@ import de.superlandnetwork.discord.bot.listeners.MemberLeaveListener;
 import de.superlandnetwork.discord.bot.listeners.MemberUnbanListener;
 import de.superlandnetwork.discord.bot.utils.Config;
 import de.superlandnetwork.discord.bot.utils.GroupsEnum;
-import de.superlandnetwork.discord.bot.utils.MySQL;
+import de.superlandnetwork.lib.database.MySQL;
 import org.javacord.api.AccountType;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;

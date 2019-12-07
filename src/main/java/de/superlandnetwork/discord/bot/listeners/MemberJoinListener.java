@@ -43,10 +43,10 @@ public class MemberJoinListener implements ServerMemberJoinListener {
         try {
             String sql = "SELECT `id` FROM `sln_discord_users` WHERE `discord` = '" + event.getUser().getId() + "'";
             if (Main.mySQL.getResult(sql).next()) {
-                String sql2 = "UPDATE `sln_discord_users` SET `last_name`='"+event.getUser().getDiscriminatedName()+"' WHERE `discord`='"+event.getUser().getId()+"'";
+                String sql2 = "UPDATE `sln_discord_users` SET `last_name`='" + event.getUser().getDiscriminatedName() + "' WHERE `discord`='" + event.getUser().getId() + "'";
                 Main.mySQL.update(sql2);
             } else {
-                String sql2 = "INSERT INTO `sln_discord_users` (`discord`, `last_name`) VALUES ('" + event.getUser().getId() + "', '"+event.getUser().getDiscriminatedName()+"')";
+                String sql2 = "INSERT INTO `sln_discord_users` (`discord`, `last_name`) VALUES ('" + event.getUser().getId() + "', '" + event.getUser().getDiscriminatedName() + "')";
                 Main.mySQL.update(sql2);
             }
         } catch (SQLException e) {
