@@ -106,6 +106,11 @@
     </build>
 
     <repositories>
+		<repository>
+            <id>nexus.filli-it.ch</id>
+            <name>Filli IT Nexus Repository</name>
+            <url>https://nexus.filli-it.ch/repository/maven-public/</url>
+        </repository>
         <repository>
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
